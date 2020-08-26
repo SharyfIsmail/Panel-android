@@ -2,189 +2,169 @@ package com.oim.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
-import android.hardware.usb.UsbEndpoint;
-import android.hardware.usb.UsbInterface;
+
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.common.util.PlatformVersion;
 
-import org.w3c.dom.Text;
+import com.oim.usb.FtdiSerialDriver;
+import com.oim.usb.UsbSerialDriver;
+import com.oim.usb.UsbSerialPort;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.concurrent.Executor;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.IOException;
 
-    private UsbManager mUsbManger;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private BroadcastReceiver broadcastReceiver;
+    public byte[] data = new byte[12];
+    private int deviceId, portNum, baudRate;
+
     private UsbDeviceConnection mConnection;
-    private UsbDevice mDevice;
-    private UsbEndpoint mOutEndpoint ;
-    private UsbEndpoint mInEndpoint ;
-    private UsbInterface usbInterface;
+    private  UsbDevice device = null;
     private TextView someText;
+    private TextView id_1;
+    private TextView id_2;
+    private TextView id_3;
+    private TextView id_4;
+    private TextView data_0;
+    private TextView data_1;
+    private TextView data_2;
+    private TextView data_3;
+    private TextView data_4;
+    private TextView data_5;
+    private TextView data_6;
+    private TextView data_7;
+    private TextView countOf;
+    private Button buttonClick;
+    private UsbSerialPort usbSerialPort;
+    private UsbManager mUsbManger;
+    private int someData = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         someText = (TextView) findViewById(R.id.Fuck);
-        mUsbManger = (UsbManager)getSystemService(Context.USB_SERVICE);
+        id_1 = (TextView) findViewById(R.id.ID_1);
+        id_2 = (TextView) findViewById(R.id.ID_2);
+        id_3 = (TextView) findViewById(R.id.ID_3);
+        id_4 = (TextView) findViewById(R.id.ID_4);
+        data_0 = (TextView) findViewById(R.id.Data_0);
+        data_1 = (TextView) findViewById(R.id.Data_1);
+        data_2 = (TextView) findViewById(R.id.Data_2);
+        data_3 = (TextView) findViewById(R.id.Data_3);
+        data_4 = (TextView) findViewById(R.id.Data_4);
+        data_5 = (TextView) findViewById(R.id.Data_5);
+        data_6 = (TextView) findViewById(R.id.Data_6);
+        data_7 = (TextView) findViewById(R.id.Data_7);
+        countOf = (TextView) findViewById(R.id.CountOf);
+        buttonClick = (Button) findViewById(R.id.button);
+        buttonClick.setOnClickListener(this);
     }
-     private UsbDevice findDevice()
+
+    private void connect() {
+        mUsbManger = (UsbManager) getSystemService(Context.USB_SERVICE);
+
+        someText.setText("Size of the list = " + mUsbManger.getDeviceList().size());
+
+        //UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        for (UsbDevice usbDevice : mUsbManger.getDeviceList().values()) {
+            someText.setText(someText.getText() + "\n" + " device Id = " + usbDevice.getDeviceId());
+            // if (usbDevice.getDeviceId() == 24577)
+            device = usbDevice;
+        }
+        if (device == null) {
+            someText.setText(someText.getText() + "\n" + "Connection failed : device not found");
+            return;
+        }
+        someText.setText(someText.getText() + "\n" + " device Id = " + device.getDeviceId());
+        someText.setText(someText.getText() + "\n" + " Vendor Id = " + device.getVendorId());
+
+        // UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
+        UsbSerialDriver driver = new FtdiSerialDriver(device);
+        if (driver == null) {
+            someText.setText(someText.getText() + "\n" + "Connection failed : driver not found");
+        }
+
+
+        usbSerialPort = driver.getPorts().get(0);
+        UsbDeviceConnection usbConnection = mUsbManger.openDevice(driver.getDevice());
+        if (usbConnection == null)
+            someText.setText(someText.getText() + "\n" + "Can't open USB connection:" + device.getDeviceName());
+        else {
+            someText.setText(someText.getText() + "\n" + "USB connection: is open" + device.getDeviceName());
+
+            try {
+                usbSerialPort.open(usbConnection);
+                usbSerialPort.setParameters(230400, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+
+            } catch (Exception e) {
+                someText.setText(someText.getText() + "\n" + "Connection failed");
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        someText.setText("Value: "+someData++);
+    }
+
+    class ThreadTest1 extends Thread
     {
-        for(UsbDevice usbDevice: mUsbManger.getDeviceList().values())
+        int i = 0;
+        int len;
+        @Override
+        public void run()
         {
-            if(usbDevice.getDeviceClass() == UsbConstants.USB_CLASS_PER_INTERFACE)
+            while(!isInterrupted())
             {
-                return usbDevice;
-            }
-            else
-            {
-                return usbDevice;
-            }
+                if (usbSerialPort != null) {
+                    try {
+                        len = usbSerialPort.read(data, 0);
 
-        }
-        return null;
-    }
-   private  UsbInterface findInterface(UsbDevice usbDevice) {
-        for (int nIf = 0; nIf < usbDevice.getInterfaceCount(); nIf++) {
-            UsbInterface usbInterface = usbDevice.getInterface(nIf);
-            if (usbInterface.getInterfaceClass() == UsbConstants.USB_CLASS_PER_INTERFACE) {
-                return usbInterface;
+                        if(len > 0)
+                        {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    countOf.setText("number = " + i++ );
+                                    id_1.setText( "Id:"+data[0]);
+                                    id_2.setText( "Id:"+data[1]);
+                                    id_3.setText( "Id:"+data[2]);
+                                    id_4.setText( "Id:"+data[3]);
+                                    data_0.setText( "Data:"+data[4]);
+                                    data_1.setText( "Data:"+data[5]);
+                                    data_2.setText( "Data:"+data[6]);
+                                    data_3.setText( "Data:"+data[7]);
+                                    data_4.setText( "Data:"+data[8]);
+                                    data_5.setText( "Data:"+data[9]);
+                                    data_6.setText( "Data:"+data[10]);
+                                    data_7.setText( "Data:"+data[11]);
+
+                                }
+                            });
+                        }
+                    } catch(IOException e){
+                        someText.setText("errrrrror = " + e.getMessage());
+                        e.printStackTrace();
+                      }
+                }
             }
         }
-        return null;
     }
+
+
     public void onResume() {
-
         super.onResume();
-       HashMap<String, UsbDevice> deviceList = mUsbManger.getDeviceList();
-
-        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
-
-        someText.setText( "Devices Count:" + deviceList.size() );
-        while (deviceIterator.hasNext()) {
-            UsbDevice Device = (UsbDevice) deviceIterator.next();
-            someText.setText( someText.getText() + "\n" + "Device Name: " + Device.getDeviceName() );
-            //пример определения ProductID устройства
-            someText.setText( someText.getText() + "\n" + "Device ProductID: " + Device.getProductId() );
-           for(int i = 0 ; i < Device.getInterfaceCount(); i++)
-           {
-               UsbInterface usbInterface = Device.getInterface(i);
-               someText.setText( someText.getText() + "\n" + "Device endPoint count: " + usbInterface.getEndpointCount() );
-               for ( int j = 0 ; j < usbInterface.getEndpointCount(); j++)
-               {
-                   UsbEndpoint tmpEndpoint = usbInterface.getEndpoint(j);
-                   someText.setText( someText.getText() + "\n" + "endPoint direction: " + tmpEndpoint.getDirection());
-
-                   if ((mOutEndpoint == null)
-                           && (tmpEndpoint.getDirection() == UsbConstants.USB_DIR_OUT)) {
-                       mOutEndpoint = tmpEndpoint;
-                   } else if ((mInEndpoint == null)
-                           && (tmpEndpoint.getDirection() == UsbConstants.USB_DIR_IN)) {
-                       mInEndpoint = tmpEndpoint;
-                   }
-                   mDevice =   Device;
-               }
-//               UsbEndpoint usbEndpoint = usbInterface.g
-               UsbDeviceConnection   mConnection =  mUsbManger.openDevice(mDevice);
-               if (mConnection == null)
-                   someText.setText( someText.getText() + "\n" + "Can't open USB connection:" +mDevice.getDeviceName() );
-
-
-              // mConnection.claimInterface(usbInterface, true);
-
-
-
-           }
-
-
+        connect();
+        new ThreadTest1().start();
         }
-       // mDevice = findDevice();
-       // UsbSerialDriver usbSerialDriver = UsbSerialProber.probeSingleDevice(mDevice);
-        //usbInterface = findInterface(mDevice);
-      //  usbInterface.getEndpointCount();
-      //  someText.setText( someText.getText() + "\n" + "Device ProductID: " + mDevice.getProductId() );
-       // someText.setText( someText.getText() + "\n" + "end point : " +   usbInterface.getEndpointCount() );
-        //определяем намерение, описанное в фильтре
-        // намерений AndroidManifest.xml
-        Intent intent = getIntent();
-        someText.setText( someText.getText() + "\n" + "intent: " + intent);
-        String action = intent.getAction();
 
-        //если устройство подключено, передаем ссылку в
-        //в функцию setDevice()
-        UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-        if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-            setDevice(device);
-            someText.setText( someText.getText() + "\n" + "UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action) is TRUE");
-        } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-            if (mDevice != null && mDevice.equals(device)) {
-                setDevice(null);
-                someText.setText( someText.getText() + "\n" + "UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action) is TRUE");
-            }
-        }
     }
-
-    private void setDevice(UsbDevice device) {
-        someText.setText( someText.getText() + "\n" + "setDevice " + device);
-        //определяем доступные интерфейсы устройства
-        if (device.getInterfaceCount() != 1) {
-
-            someText.setText( someText.getText() + "\n" + "could not find interface");
-            return;
-        }
-        UsbInterface intf = device.getInterface(0);
-
-        //определяем конечные точки устройства
-        if (intf.getEndpointCount() == 0) {
-
-            someText.setText( someText.getText() + "\n" +  "could not find endpoint");
-            return;
-        } else {
-            someText.setText( someText.getText() + "\n" + "Endpoints Count: " + intf.getEndpointCount() );
-        }
-
-        UsbEndpoint epIN = null;
-        UsbEndpoint epOUT = null;
-
-        //ищем конечные точки для передачи по прерываниям
-        for (int i = 0; i < intf.getEndpointCount(); i++) {
-            if (intf.getEndpoint(i).getType() == UsbConstants.USB_ENDPOINT_XFER_INT) {
-                if (intf.getEndpoint(i).getDirection() == UsbConstants.USB_DIR_IN) {
-                    epIN = intf.getEndpoint(i);
-                    someText.setText( someText.getText() + "\n" + "IN endpoint: " + intf.getEndpoint(i) );
-                }
-                else {
-                    epOUT = intf.getEndpoint(i);
-                    someText.setText( someText.getText() + "\n" + "OUT endpoint: " + intf.getEndpoint(i) );
-                }
-            } else { someText.setText( someText.getText() + "\n" + "no endpoints for INTERRUPT_TRANSFER"); }
-        }
-
-        mDevice = device;
-
-        //открываем устройство для передачи данных
-        if (device != null) {
-            UsbDeviceConnection connection = mUsbManger.openDevice(device);
-            if (connection != null && connection.claimInterface(intf, true)) {
-
-                someText.setText( someText.getText() + "\n" + "open device SUCCESS!");
-                mConnection = connection;
-
-            } else {
-
-                someText.setText( someText.getText() + "\n" + "open device FAIL!");
-                mConnection = null;
-            }
-        }
-    }
-}
-
