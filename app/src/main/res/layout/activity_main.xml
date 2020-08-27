@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.oim.Activities.MainActivity">
 
     <TextView
         android:id="@+id/Fuck"
@@ -298,4 +298,5 @@
         app:layout_constraintVertical_bias="0.020
 
 " />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

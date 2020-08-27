@@ -14,7 +14,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/device_filter" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.oim.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
