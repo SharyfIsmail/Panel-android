@@ -1,12 +1,13 @@
 package com.oim.thread;
 
 import com.google.android.gms.common.util.PlatformVersion;
+import com.oim.candata.DataFromDeviceModel;
 
 import java.util.Map;
 
 public class ReceiveThread extends Thread
 {
-    private Map<Integer, Integer> canPackage;
+    private Map<Integer, DataFromDeviceModel> canPackage;
     @Override
     public void run() {
 
@@ -15,7 +16,7 @@ public class ReceiveThread extends Thread
     {
 
     }
-    public void setUnitIdMapper(Map<Integer, Integer> canPackage)
+    public void setUnitIdMapper(Map<Integer, DataFromDeviceModel> canPackage)
     {
         this.canPackage = canPackage;
     }

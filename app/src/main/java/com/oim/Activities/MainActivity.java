@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 if (usbSerialPort != null) {
                     try {
-                        len = usbSerialPort.read(data, 0);
+                        len = usbSerialPort.read(data, 100);
 
                         if(len > 0)
                         {
