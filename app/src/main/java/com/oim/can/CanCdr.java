@@ -6,7 +6,6 @@ import java.nio.ByteOrder;
 public class CanCdr implements Can
 {
     private int id;
-    private int Dlc;
     private byte[] data = new  byte[8];
     public static final int PACKAGE_SIZE = 12;
     @Override
@@ -33,10 +32,5 @@ public class CanCdr implements Can
 
     private int getBytePosition(int bytePosition) {
         return bytePosition;
-    }
-
-    @Override
-    public int getDlc() {
-        return getBytePosition(Dlc);
     }
 }

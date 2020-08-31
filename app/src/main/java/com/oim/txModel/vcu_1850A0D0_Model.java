@@ -14,7 +14,8 @@ public class vcu_1850A0D0_Model implements DataFromDeviceModel
     }
 
     @Override
-    public DataFromDevice getDataFromDevice() {
-        return null;
+    public DataFromDevice getDataFromDevice()
+    {
+        return vcu_1850A0D0;
     }
 }

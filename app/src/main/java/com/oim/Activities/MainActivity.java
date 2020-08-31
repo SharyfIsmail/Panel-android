@@ -9,21 +9,19 @@ import android.hardware.usb.UsbDeviceConnection;
 
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 
 import com.oim.myapplication.R;
-import com.oim.usb.FtdiSerialDriver;
-import com.oim.usb.UsbSerialDriver;
-import com.oim.usb.UsbSerialPort;
+import com.oim.usbDriver.FtdiSerialDriver;
+import com.oim.usbDriver.UsbSerialDriver;
+import com.oim.usbDriver.UsbSerialPort;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

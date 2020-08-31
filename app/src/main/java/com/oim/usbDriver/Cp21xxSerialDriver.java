@@ -1,4 +1,4 @@
-package com.oim.usb;
+package com.oim.usbDriver;
 
 import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;

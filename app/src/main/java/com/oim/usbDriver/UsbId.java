@@ -1,4 +1,4 @@
-package com.oim.usb;
+package com.oim.usbDriver;
 
 public final class   UsbId
 {

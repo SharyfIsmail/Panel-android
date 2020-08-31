@@ -18,6 +18,7 @@ public class Parser
         }
         public static int uint_16ToInt(byte[] data)
         {
+            Integer a = 4;
             if(data.length == 2)
             {
                 byte[] parsedData = {0, 0, data[0], data[1]};
@@ -70,6 +71,4 @@ public class Parser
             }
         }
     }
-
-
 }

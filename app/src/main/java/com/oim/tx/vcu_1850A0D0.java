@@ -4,14 +4,16 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.oim.can.CanCdr;
 import com.oim.candata.DataFromDevice;
 import com.oim.candata.DataFromDeviceModel;
+import com.oim.util.Parser;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class vcu_1850A0D0 implements DataFromDevice
+public class vcu_1850A0D0 extends CanCdr implements DataFromDevice
 {
     private  String systemStatus;
     private String errorStatus;
@@ -50,14 +52,16 @@ public class vcu_1850A0D0 implements DataFromDevice
         this.speed = speed;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void parseDataFromCan(byte[] data)
     {
         if(data.length == 8)
         {
             systemStatus = SystemStatusCode.getSystemStatus(data[1]);
-            speed = (short)(((int)data[7]) & 0xff);
+            byte[] b = new byte[4];
+            System.arraycopy(data, 2, b, 0, b.length);
+            time = Parser.BigIndianByteParser.unsignedLongToLong(b);
+            speed = Parser.BigIndianByteParser.uint_8ToShort(data[7]);
             errorStatus = ErrorStatusCode.getSystemStatus(data[6]);
         }
     }
