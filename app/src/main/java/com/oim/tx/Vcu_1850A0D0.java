@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class vcu_1850A0D0 extends CanCdr implements DataFromDevice
+public class Vcu_1850A0D0 extends CanCdr implements DataFromDevice
 {
     private  String systemStatus;
     private String errorStatus;

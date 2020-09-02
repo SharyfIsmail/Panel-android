@@ -1,20 +1,10 @@
 <resources>
     <string name="Panel">My Application</string>
-    <string name="fuck_yeah">Fuck YEAH</string>
+    <string name="speedInit">0</string>
     <string name="ButtonC">click me</string>
-    <string name="Id_1">Id_1</string>
-    <string name="Id_2">Id_2</string>
-    <string name="Id_3">Id_3</string>
-    <string name="Id_4">Id_4</string>
+    <string name="systemStatus">Init</string>
+    <string name="systemError">No Errors</string>
+    <string name="connectionId">connection:</string>
 
-    <string name="Data_0">Data_0</string>
-    <string name="Data_1">Data_1</string>
-    <string name="Data_2">Data_2</string>
-    <string name="Data_3">Data_3</string>
-    <string name="Data_4">Data_4</string>
-    <string name="Data_5">Data_5</string>
-    <string name="Data_6">Data_6</string>
-    <string name="Data_7">Data_7</string>
-    <string name="CountOf">CountOf</string>
 
 </resources>
