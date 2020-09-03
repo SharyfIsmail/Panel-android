@@ -26,7 +26,7 @@ public class ReceiveThread extends Thread
     private Map<Integer, DataFromDeviceModel> canPackage;
     private UsbDeviceConnection usbConnection;
 
-    private byte [] receiveBuffer = new byte[1024];
+
 
     public void setBinding(ActivityMainBinding binding) {
         this.binding = binding;
@@ -69,22 +69,40 @@ public class ReceiveThread extends Thread
     @Override
     public void run()
     {
+        //Test
+        /*
         IUsbCan usbCanPackage = new UsbCanPackage();
         byte[] data = new byte[43];
         data[0] = -99;
+        data[1] = 0x18;
+        data[2] =0x50;
+        data[3] = -96;
+        data[4] = -48;
+        data[13] = -104;
         usbCanPackage.parseUsbPacket(data);
+        for(Can can : usbCanPackage.getAllCan())
+        {
+            if(canPackage.get(can.getId()) != null)
+            {
+                DataFromDeviceModel dataFromDeviceModel = canPackage.get(can.getId());
+                dataFromDeviceModel.getDataFromDevice().parseDataFromCan(can.getData());
+                dataFromDeviceModel.updateModel();
+            }
+        }*/
         if(usbConnection != null)
         while(!isInterrupted()) {
             if(usbSerialPort.isOpen()) {
-                int len = 0;
                 try {
-                    len = usbSerialPort.read(receiveBuffer, 0);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (len > 0) {
-                    byte[] array = Arrays.copyOfRange(receiveBuffer, 0, len);
-                    objectMapping(array);
+                    int len = 0;
+                    byte [] receiveBuffer = new byte[8192];
+                    len = usbSerialPort.read(receiveBuffer, 2000);
+
+                    if (len > 0) {
+                        byte[] array = Arrays.copyOf(receiveBuffer, len);
+                        objectMapping(array);
+                        }
+                    }catch (IOException e) {
+                     e.printStackTrace();
                 }
             }
         }

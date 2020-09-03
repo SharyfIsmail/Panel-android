@@ -10,7 +10,7 @@ public class CanCdr implements Can
     public static final int PACKAGE_SIZE = 12;
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CanCdr implements Can
             byte[] partArray = new byte[4];
             id = ByteBuffer.wrap(canPacket).order(ByteOrder.BIG_ENDIAN).getInt(0);
             int bytePosition = +4;
-           System.arraycopy(canPacket, getBytePosition(bytePosition), data, 0, 7 );
+           System.arraycopy(canPacket, getBytePosition(bytePosition), data, 0, data.length );
         }
     }
 

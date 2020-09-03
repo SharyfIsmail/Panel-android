@@ -56,6 +56,7 @@ public class Vcu_1850A0D0_Model extends BaseObservable implements DataFromDevice
     public  Vcu_1850A0D0_Model()
     {
         vcu_1850A0D0 = new Vcu_1850A0D0();
+
         speed = new ObservableField<>(String.valueOf(0));
         systemStatus = new ObservableField<>();
         errorStatus = new ObservableField<>();
@@ -70,7 +71,7 @@ public class Vcu_1850A0D0_Model extends BaseObservable implements DataFromDevice
             public void run() {
                 speed.set(String.valueOf(vcu_1850A0D0.getSpeed()));
                 systemStatus.set(String.valueOf(vcu_1850A0D0.getSystemStatus()));
-                errorStatus.set(String.valueOf(vcu_1850A0D0.getErrorStatus()));
+                errorStatus.set("Error: "+String.valueOf(vcu_1850A0D0.getErrorStatus()));
                 time.set(String.valueOf(vcu_1850A0D0.getTime()));
                 activityMainBinding.setVcu1850A0D0Model(Vcu_1850A0D0_Model.this);
             }

@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         // UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
         UsbSerialDriver driver = new FtdiSerialDriver(device);
+
         if (driver == null) {
             activityMainBinding.connectionId.setText(connectionId.getText() + " Failed");
         }

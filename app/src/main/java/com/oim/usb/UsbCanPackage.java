@@ -4,6 +4,7 @@ import com.oim.can.Can;
 import com.oim.can.CanCdr;
 import com.oim.util.Parser;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,9 @@ public class UsbCanPackage  implements  IUsbCan
     @Override
     public short crc8(byte[] data) {
       short crc = 0xFF;
-      int dataLength = data.length;
       for(int i = 0; i < data.length ; i++)
         {
-            crc = IUsbCan.crc8Table[crc ^ data[i]];
+            crc = IUsbCan.crc8Table[crc ^ Parser.BigIndianByteParser.uint_8ToShort(data[i])];
         }
       return crc;
     }
@@ -54,7 +54,7 @@ public class UsbCanPackage  implements  IUsbCan
     public void parseUsbPacket(byte[] usbPacket)
     {
         Can currentCan = new CanCdr();
-
+        cans.clear();
         for (int i = 0; i < usbPacket.length; i++) {
             if(index == 0)
             {
@@ -64,7 +64,7 @@ public class UsbCanPackage  implements  IUsbCan
                 if ((index + 1 + 13) == usbPacket.length) {
                     byte[] partArray = new byte[12];
                     System.arraycopy(usbPacket, index + 1, partArray, 0, partArray.length);
-                    if (crc8(partArray) == usbPacket[index + 13]) {
+                    if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[index + 13])) {
                         currentCan.parseCan(partArray);
                         cans.add(currentCan);
                     }
@@ -77,7 +77,7 @@ public class UsbCanPackage  implements  IUsbCan
                     {
                         byte[] partArray = new byte[12];
                         System.arraycopy(usbPacket, index + 1, partArray, 0, partArray.length);
-                        if (crc8(partArray) == usbPacket[index + 13]) {
+                        if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[index + 13])) {
                             currentCan.parseCan(partArray);
                             cans.add(currentCan);
                         }
@@ -96,7 +96,7 @@ public class UsbCanPackage  implements  IUsbCan
                     System.arraycopy(usbPacket, 0, usbData, index, usbData.length - index);
                     byte[] partArray = new byte[12];
                     System.arraycopy(usbData, 0, partArray, 0, partArray.length);
-                    if (crc8(partArray) == usbData[13]) {
+                    if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbData[13])) {
                         currentCan.parseCan(partArray);
                         cans.add(currentCan);
                     }
@@ -110,7 +110,7 @@ public class UsbCanPackage  implements  IUsbCan
                     {
                         byte[] partArray = new byte[12];
                         System.arraycopy(usbData, 0, partArray, 0, partArray.length);
-                        if (crc8(partArray) == usbData[13]) {
+                        if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbData[13])) {
                             currentCan.parseCan(partArray);
                             cans.add(currentCan);
                         }
