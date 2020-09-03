@@ -58,8 +58,8 @@ public class UsbCanPackage  implements  IUsbCan
         Can currentCan = new CanCdr();
         cans.clear();
         for (int i = 0; i < usbPacket.length; i++) {
-            if(indexDestination == 0)
-            {
+        //    if(indexDestination == 0)
+         //   {
                 if (Parser.BigIndianByteParser.uint_8ToShort(usbPacket[i]) != header)
                     continue;
                 indexSource = i;
@@ -76,10 +76,11 @@ public class UsbCanPackage  implements  IUsbCan
                 }
                 else
                 {
-                    if(indexDestination < 13) {
+                    //if(indexDestination < 13) {
                         int min = Math.min(usbPacket.length -indexSource - 1, 13 - indexDestination);
                         System.arraycopy(usbPacket, indexSource + 1, usbData, indexDestination, min);
                         indexDestination += min;
+                        i += min;
                         if(indexDestination == 13)
                         {
                             byte[] partArray = new byte[12];
@@ -91,7 +92,7 @@ public class UsbCanPackage  implements  IUsbCan
                             indexDestination = 0;
                             i +=min;
                         }
-                    }
+                   // }
                 }
                /* if ((indexSource + 1 + 13) == usbPacket.length) {
                     byte[] partArray = new byte[12];
@@ -148,7 +149,7 @@ public class UsbCanPackage  implements  IUsbCan
                         indexSource = 0;
                     }
                 }*/
-            }
+            //}
         }
     }
 }
