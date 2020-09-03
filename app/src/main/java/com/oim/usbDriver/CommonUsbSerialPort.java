@@ -27,14 +27,17 @@ public abstract class CommonUsbSerialPort implements UsbSerialPort
     protected UsbRequest mUsbRequest;
 
     protected final Object mWriteBufferLock = new Object();
+    protected  final Object mReadBufferLock = new Object();
     /** Internal write buffer.  Guarded by {@link #mWriteBufferLock}. */
     protected byte[] mWriteBuffer;
+    protected byte[] mReadBuffer;
 
     public CommonUsbSerialPort(UsbDevice device, int portNumber) {
         mDevice = device;
         mPortNumber = portNumber;
 
         mWriteBuffer = new byte[DEFAULT_WRITE_BUFFER_SIZE];
+        mReadBuffer = new byte[MAX_READ_SIZE];
     }
 
     @Override
@@ -77,6 +80,18 @@ public abstract class CommonUsbSerialPort implements UsbSerialPort
             mWriteBuffer = new byte[bufferSize];
         }
     }
+    public final void setReadBufferSize(int bufferSize)
+    {
+        synchronized (mReadBufferLock)
+        {
+            if(bufferSize == mReadBuffer.length)
+            {
+                return;
+            }
+            mReadBuffer = new byte[bufferSize];
+        }
+    }
+
 
     @Override
     public void open(UsbDeviceConnection connection) throws IOException {
