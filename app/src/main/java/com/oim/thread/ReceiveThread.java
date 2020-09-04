@@ -69,38 +69,17 @@ public class ReceiveThread extends Thread
     @Override
     public void run()
     {
-        //Test
-
-        IUsbCan usbCanPackage = new UsbCanPackage();
-        byte[] data = new byte[43];
-        data[0] = -99;
-        data[1] = 0x18;
-        data[2] =0x50;
-        data[3] = -96;
-        data[4] = -48;
-        data[13] = -104;
-        data[40] =   -99;
-        for( int i = 0 ; i < 100; i ++) {
-            usbCanPackage.parseUsbPacket(data);
-            for (Can can : usbCanPackage.getAllCan()) {
-                if (canPackage.get(can.getId()) != null) {
-                    DataFromDeviceModel dataFromDeviceModel = canPackage.get(can.getId());
-                    dataFromDeviceModel.getDataFromDevice().parseDataFromCan(can.getData());
-                    dataFromDeviceModel.updateModel();
-                }
-            }
-        }
         if(usbConnection != null)
         while(!isInterrupted()) {
             if(usbSerialPort.isOpen()) {
                 try {
                     int len = 0;
-                    byte [] receiveBuffer = new byte[25];
+                    byte [] receiveBuffer = new byte[8192];
                     len = usbSerialPort.read(receiveBuffer, 100);
 
                     if (len > 0) {
                         byte[] array = Arrays.copyOf(receiveBuffer, len);
-                       // objectMapping(array);
+                        objectMapping(array);
                         }
                     }catch (IOException e) {
                      e.printStackTrace();

@@ -55,29 +55,27 @@ public class UsbCanPackage  implements  IUsbCan
     @Override
     public void parseUsbPacket(byte[] usbPacket)
     {
-        Can currentCan = new CanCdr();
         cans.clear();
         for (int i = 0; i < usbPacket.length; i++) {
-        //    if(indexDestination == 0)
-         //   {
-                if (Parser.BigIndianByteParser.uint_8ToShort(usbPacket[i]) != header)
+
+                if (Parser.BigIndianByteParser.uint_8ToShort(usbPacket[i]) != header && indexDestination == 0)
                     continue;
                 indexSource = i;
-                if(usbPacket.length - indexSource + 1 >= 13)
+                if(usbPacket.length - (indexSource + 1) >= 13  && indexDestination == 0)
                 {
                     byte[] partArray = new byte[12];
                     System.arraycopy(usbPacket, indexSource + 1, partArray, 0, partArray.length);
                     if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[indexSource + 13])) {
+                        Can currentCan = new CanCdr();
                         currentCan.parseCan(partArray);
                         cans.add(currentCan);
                     }
-                    i += 14;
-                   // indexSource = 0;
+                    i += 13;
+                    indexDestination = 0;
                 }
                 else
                 {
-                    //if(indexDestination < 13) {
-                        int min = Math.min(usbPacket.length -indexSource - 1, 13 - indexDestination);
+                        int min = Math.min(usbPacket.length - (indexSource + 1), 13 - indexDestination);
                         System.arraycopy(usbPacket, indexSource + 1, usbData, indexDestination, min);
                         indexDestination += min;
                         i += min;
@@ -86,13 +84,12 @@ public class UsbCanPackage  implements  IUsbCan
                             byte[] partArray = new byte[12];
                             ByteBuffer.wrap(usbData).get(partArray,0,usbData.length - 1);
                             if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[indexSource + min])) {
+                                Can currentCan = new CanCdr();
                                 currentCan.parseCan(partArray);
                                 cans.add(currentCan);
                             }
                             indexDestination = 0;
-                            i +=min;
                         }
-                   // }
                 }
                /* if ((indexSource + 1 + 13) == usbPacket.length) {
                     byte[] partArray = new byte[12];

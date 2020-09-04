@@ -58,11 +58,11 @@ public class Vcu_1850A0D0 extends CanCdr implements DataFromDevice
         if(data.length == 8)
         {
             systemStatus = SystemStatusCode.getSystemStatus(data[1]);
-            byte[] b = new byte[4];
-            System.arraycopy(data, 2, b, 0, b.length);
-            time = Parser.BigIndianByteParser.unsignedLongToLong(b);
-            speed = Parser.BigIndianByteParser.uint_8ToShort(data[7]);
+            byte[] partArray = new byte[4];
+            System.arraycopy(data, 2, partArray, 0, partArray.length);
+            time = Parser.BigIndianByteParser.unsignedLongToLong(partArray);
             errorStatus = ErrorStatusCode.getSystemStatus(data[6]);
+            speed = Parser.BigIndianByteParser.uint_8ToShort(data[7]);
         }
     }
     private static class SystemStatusCode
