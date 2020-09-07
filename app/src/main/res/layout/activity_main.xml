@@ -14,10 +14,24 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/panelwithspeed"
+
+
         tools:context="com.oim.Activities.MainActivity"
         tools:layout_editor_absoluteX="-10dp"
         tools:layout_editor_absoluteY="-85dp">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/panelwithspeed" />
 
         <Button
             android:id="@+id/button"
@@ -105,18 +119,18 @@
 
         <ImageView
             android:id="@+id/speedPointerId"
-            android:layout_width="231dp"
-            android:layout_height="8dp"
+            android:layout_width="240dp"
+            android:layout_height="9dp"
             android:contentDescription="@string/Pointer"
             android:rotation="0"
             android:scaleY="1"
             android:scrollX="15dp"
-            app:layout_constraintBottom_toBottomOf="@id/speedId"
-            app:layout_constraintEnd_toEndOf="@id/speedId"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/speedId"
-            app:layout_constraintTop_toTopOf="@id/speedId"
-            app:layout_constraintVertical_bias="0.303"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.266"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.467"
             app:srcCompat="@drawable/pointer" />
 
 
