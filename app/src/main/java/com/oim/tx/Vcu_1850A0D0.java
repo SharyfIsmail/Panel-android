@@ -1,15 +1,11 @@
 package com.oim.tx;
 
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
 
 import com.oim.can.CanCdr;
 import com.oim.candata.DataFromDevice;
-import com.oim.candata.DataFromDeviceModel;
 import com.oim.util.Parser;
 
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 

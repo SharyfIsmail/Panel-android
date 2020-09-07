@@ -2,6 +2,8 @@
     <string name="Panel">My Application</string>
     <string name="ButtonC">click me</string>
     <string name="connectionId">connection:</string>
+    <string name="todo">TODO</string>
+    <string name="Pointer">TODO</string>
 
 
 </resources>

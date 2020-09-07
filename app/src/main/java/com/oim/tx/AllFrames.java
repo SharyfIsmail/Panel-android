@@ -1,6 +1,7 @@
 package com.oim.tx;
 
 import com.oim.candata.DataFromDeviceModel;
+import com.oim.txModel.Inv_18A2D0EF_Model;
 import com.oim.txModel.Vcu_1850A0D0_Model;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class AllFrames
     {
         Map<Integer, DataFromDeviceModel> canId = new HashMap<>();
         canId.put(407937232, new Vcu_1850A0D0_Model());
+        canId.put(413323503, new Inv_18A2D0EF_Model());
         return canId;
     }
     public static AllFrames getAllFramesSingelton()

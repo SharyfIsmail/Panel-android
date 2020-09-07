@@ -16,7 +16,7 @@ import com.oim.myapplication.databinding.ActivityMainBinding;
 import com.oim.tx.Vcu_1850A0D0;
 
 
-public class Vcu_1850A0D0_Model extends BaseObservable implements DataFromDeviceModel
+public class Vcu_1850A0D0_Model   implements DataFromDeviceModel
 {
     private Vcu_1850A0D0 vcu_1850A0D0;
     private ObservableField<String> speed;
