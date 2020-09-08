@@ -13,6 +13,7 @@ import com.oim.candata.DataFromDevice;
 import com.oim.candata.DataFromDeviceModel;
 import com.oim.myapplication.R;
 import com.oim.myapplication.databinding.ActivityMainBinding;
+import com.oim.myapplication.databinding.ActivityTestBinding;
 import com.oim.tx.Vcu_1850A0D0;
 
 
@@ -24,7 +25,7 @@ public class Vcu_1850A0D0_Model   implements DataFromDeviceModel
     private ObservableField<String> errorStatus;
     private ObservableField<String> time;
     private Handler threadHandler;
-    private ActivityMainBinding activityMainBinding;
+    private ActivityTestBinding activityMainBinding;
     public Vcu_1850A0D0 getVcu_1850A0D0() {
         return vcu_1850A0D0;
     }
@@ -45,11 +46,11 @@ public class Vcu_1850A0D0_Model   implements DataFromDeviceModel
         return time;
     }
 
-    public ActivityMainBinding getActivityMainBinding() {
+    public ActivityTestBinding getActivityMainBinding() {
         return activityMainBinding;
     }
 
-    public void setActivityMainBinding(ActivityMainBinding activityMainBinding) {
+    public void setActivityMainBinding(ActivityTestBinding activityMainBinding) {
         this.activityMainBinding = activityMainBinding;
     }
 

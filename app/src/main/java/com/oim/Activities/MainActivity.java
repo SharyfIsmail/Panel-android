@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 
 import com.oim.myapplication.R;
-import com.oim.myapplication.databinding.ActivityMainBinding;
+import com.oim.myapplication.databinding.ActivityTestBinding;
 import com.oim.thread.ReceiveThread;
 import com.oim.tx.AllFrames;
 import com.oim.txModel.Inv_18A2D0EF_Model;
@@ -30,12 +30,12 @@ import com.oim.usbDriver.UsbSerialPort;
 
 
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
     private TextView connectionId;
     private ImageView pointerImage;
     private UsbDeviceConnection mConnection;
     private  UsbDevice device = null;
-    private ActivityMainBinding activityMainBinding;
+    private ActivityTestBinding activityMainBinding;
     private   UsbDeviceConnection usbConnection;
     private Button buttonClick;
     private UsbSerialPort usbSerialPort;
@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_test);
+
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         pointerImage = (ImageView) findViewById(R.id.speedPointerId);
      //   RotateAnimation rotateAnimation = new RotateAnimation(-27,360, RotateAnimation.RELATIVE_TO_SELF,1.0f,RotateAnimation.RELATIVE_TO_SELF, 1.0f);
 
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_pointer);
-        pointerImage.startAnimation(animation);
-        animation.setFillAfter(true);
-        animation.setFillEnabled(true);
+        //Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_pointer);
+        //pointerImage.startAnimation(animation);
+       // animation.setFillAfter(true);
+        //animation.setFillEnabled(true);
 
       //  pointerImage.startAnimation(rotateAnimation);
        // rotateAnimation.setDuration(10000);
@@ -69,9 +70,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         Vcu_1850A0D0_Model v = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(407937232);
         v.setActivityMainBinding(activityMainBinding);
         Inv_18A2D0EF_Model inv_18A2D0EF_model = (Inv_18A2D0EF_Model) allFramesIdMap.getCanId().get(413323503);
-        inv_18A2D0EF_model.setPointer(pointerImage);
-        buttonClick = (Button) findViewById(R.id.button);
-        buttonClick.setOnClickListener(this);
+       // inv_18A2D0EF_model.setPointer(pointerImage);
+        inv_18A2D0EF_model.setActivityMainBinding(activityMainBinding);
+        //buttonClick = (Button) findViewById(R.id.button);
+        //buttonClick.setOnClickListener(this);
 
     }
 
@@ -115,10 +117,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
     }
 int a = 0;
-    @Override
-    public void onClick(View view) {
-        activityMainBinding.connectionId.setText("value " + a++);
-    }
+//    @Override
+//    public void onClick(View view) {
+//        activityMainBinding.connectionId.setText("value " + a++);
+//    }
 
 
 
@@ -127,7 +129,7 @@ int a = 0;
         super.onResume();
         connect();
         receiveThread.setUnitIdMapper(allFramesIdMap.getCanId());
-        receiveThread.setBinding(activityMainBinding);
+      //  receiveThread.setBinding(activityMainBinding);
         receiveThread.setUsbConnection(usbConnection);
         receiveThread.setUsbSerialPort(usbSerialPort);
         receiveThread.start();
