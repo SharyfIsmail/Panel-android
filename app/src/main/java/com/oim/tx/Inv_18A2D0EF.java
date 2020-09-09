@@ -8,7 +8,7 @@ public class Inv_18A2D0EF extends CanCdr implements DataFromDevice {
     private  int rotationSpeed;
 
     public int getRotationSpeed() {
-        return rotationSpeed;
+        return Math.abs(rotationSpeed - 20000);
     }
 
     public void setRotationSpeed(int rotationSpeed) {

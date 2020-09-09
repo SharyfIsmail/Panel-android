@@ -66,14 +66,14 @@ public class Vcu_1850A0D0 extends CanCdr implements DataFromDevice
         private static Map<Integer, String> systemStatusCondition = new HashMap<>();
         static
         {
-            systemStatusCondition.put(0, "Init");
-            systemStatusCondition.put(1, "Parking");
-            systemStatusCondition.put(2, "Neutral");
-            systemStatusCondition.put(3, "Drive");
-            systemStatusCondition.put(4, "Reverce");
-            systemStatusCondition.put(5, "Charging");
-            systemStatusCondition.put(6, "Sleep");
-            systemStatusCondition.put(7, "Undefined");
+            systemStatusCondition.put(0, "I");
+            systemStatusCondition.put(1, "P");
+            systemStatusCondition.put(2, "N");
+            systemStatusCondition.put(3, "D");
+            systemStatusCondition.put(4, "R");
+            systemStatusCondition.put(5, "C");
+            systemStatusCondition.put(6, "S");
+            systemStatusCondition.put(7, "E");
         }
         public static String getSystemStatus(byte code)
         {

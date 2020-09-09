@@ -1,17 +1,15 @@
-package com.oim.tx;
+package com.oim.txModel;
 
 import com.oim.candata.DataFromDeviceModel;
-import com.oim.txModel.Inv_18A2D0EF_Model;
-import com.oim.txModel.Vcu_1850A0D0_Model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AllFrames
+public class AllFramesModel
 {
-    public static AllFrames allFramesSingelton;
+    public static AllFramesModel allFramesSingelton;
     private Map<Integer, DataFromDeviceModel> canId;
-    private AllFrames(Map<Integer, DataFromDeviceModel> canId)
+    private AllFramesModel(Map<Integer, DataFromDeviceModel> canId)
     {
         this.canId = canId;
     }
@@ -20,13 +18,15 @@ public class AllFrames
         Map<Integer, DataFromDeviceModel> canId = new HashMap<>();
         canId.put(407937232, new Vcu_1850A0D0_Model());
         canId.put(413323503, new Inv_18A2D0EF_Model());
+        canId.put(414503155, new Bms_18B4D0F3_Model());
+
         return canId;
     }
-    public static AllFrames getAllFramesSingelton()
+    public static AllFramesModel getAllFramesSingelton()
     {
         if(allFramesSingelton == null)
         {
-            allFramesSingelton = new AllFrames(AllFrames.canId());
+            allFramesSingelton = new AllFramesModel(AllFramesModel.canId());
         }
         return allFramesSingelton;
     }

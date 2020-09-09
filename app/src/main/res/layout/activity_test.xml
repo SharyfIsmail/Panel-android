@@ -15,14 +15,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F8F5F5"
+        android:background="#322F2F"
         android:orientation="horizontal"
         tools:context="com.oim.Activities.MainActivity">
 
         <TextView
             android:id="@+id/connectionId"
             android:layout_width="220dp"
-            android:layout_height="40dp"
+            android:layout_height="44dp"
             android:text="@string/connectionId"
             android:textColor="#F4F0F0"
             android:textColorHint="#F6F0F0"
@@ -52,9 +52,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/speedContraint"
-            android:foregroundGravity="left"
             android:layout_width="465dp"
             android:layout_height="375dp"
+            android:foregroundGravity="left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,10 +62,14 @@
 
             <TextView
                 android:id="@+id/speedId"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="130dp"
+                android:layout_marginEnd="175dp"
+                android:layout_marginBottom="110dp"
                 android:text="@{vcu_1850A0D0_model.speed}"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -82,13 +86,15 @@
 
             <TextView
                 android:id="@+id/systemStatus"
-                android:layout_width="150dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:text="@{vcu_1850A0D0_model.systemStatus}"
                 android:textAlignment="center"
+                android:textColor="#C5840A"
+                android:textSize="70sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/progressBar"
                 app:layout_constraintHorizontal_bias="0.539"
@@ -101,7 +107,7 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
+                style="@style/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -109,14 +115,15 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                tools:progress="45" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/turnOverConstraint"
-            android:foregroundGravity="right"
             android:layout_width="465dp"
             android:layout_height="375dp"
+            android:foregroundGravity="right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -126,7 +133,7 @@
 
             <ProgressBar
                 android:id="@+id/progressBar2"
-                style="?android:attr/progressBarStyle"
+                style="@style/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -134,16 +141,18 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                tools:progress="45" />
+
 
             <TextView
                 android:id="@+id/turnOver"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="175dp"
-                android:layout_marginTop="153dp"
-                android:layout_marginEnd="174dp"
-                android:layout_marginBottom="112dp"
+                android:layout_marginTop="130dp"
+                android:layout_marginEnd="175dp"
+                android:layout_marginBottom="110dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:text="@{inv_18A2D0EF_model.turnOver}"

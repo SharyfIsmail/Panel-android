@@ -10,18 +10,16 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
 import com.oim.myapplication.R;
 import com.oim.myapplication.databinding.ActivityTestBinding;
 import com.oim.thread.ReceiveThread;
-import com.oim.tx.AllFrames;
+import com.oim.txModel.AllFramesModel;
 import com.oim.txModel.Inv_18A2D0EF_Model;
 import com.oim.txModel.Vcu_1850A0D0_Model;
 import com.oim.usbDriver.FtdiSerialDriver;
@@ -33,29 +31,34 @@ import com.oim.usbDriver.UsbSerialPort;
 public class MainActivity extends AppCompatActivity {
     private TextView connectionId;
     private ImageView pointerImage;
+    private ProgressBar speedProgressBar;
+    private ProgressBar rotationProgressBar;
+
     private UsbDeviceConnection mConnection;
     private  UsbDevice device = null;
-    private ActivityTestBinding activityMainBinding;
+    private ActivityTestBinding activityTestBinding;
     private   UsbDeviceConnection usbConnection;
     private Button buttonClick;
     private UsbSerialPort usbSerialPort;
     private UsbManager mUsbManger;
     private ReceiveThread receiveThread ;
-    private AllFrames allFramesIdMap;
+    private AllFramesModel allFramesIdMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_test);
-
+      //  setContentView(R.layout.activity_main);
+        activityTestBinding = DataBindingUtil.setContentView(this, R.layout.activity_test);
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
-        allFramesIdMap = AllFrames.getAllFramesSingelton();
+        allFramesIdMap = AllFramesModel.getAllFramesSingelton();
         receiveThread  = new ReceiveThread();
         connectionId = (TextView) findViewById(R.id.connectionId);
         pointerImage = (ImageView) findViewById(R.id.speedPointerId);
+        speedProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        rotationProgressBar = (ProgressBar) findViewById(R.id.progressBar2);
      //   RotateAnimation rotateAnimation = new RotateAnimation(-27,360, RotateAnimation.RELATIVE_TO_SELF,1.0f,RotateAnimation.RELATIVE_TO_SELF, 1.0f);
 
         //Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_pointer);
@@ -67,11 +70,14 @@ public class MainActivity extends AppCompatActivity {
        // rotateAnimation.setDuration(10000);
       //  rotateAnimation.setFillAfter(true);
       //  rotateAnimation.setFillEnabled(true);
-        Vcu_1850A0D0_Model v = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(407937232);
-        v.setActivityMainBinding(activityMainBinding);
+        Vcu_1850A0D0_Model vcu_1850A0D0_model = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(407937232);
+        vcu_1850A0D0_model.setActivityMainBinding(activityTestBinding);
+        vcu_1850A0D0_model.setSpeedProgessBar(speedProgressBar);
         Inv_18A2D0EF_Model inv_18A2D0EF_model = (Inv_18A2D0EF_Model) allFramesIdMap.getCanId().get(413323503);
        // inv_18A2D0EF_model.setPointer(pointerImage);
-        inv_18A2D0EF_model.setActivityMainBinding(activityMainBinding);
+        inv_18A2D0EF_model.setRotationProgressBar(rotationProgressBar);
+        inv_18A2D0EF_model.setActivityMainBinding(activityTestBinding);
+
         //buttonClick = (Button) findViewById(R.id.button);
         //buttonClick.setOnClickListener(this);
 
@@ -85,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
                 device = usbDevice;
         }
         if (device == null) {
-            activityMainBinding.connectionId.setText(connectionId.getText() + " Failed");
+            activityTestBinding.connectionId.setText(connectionId.getText() + " Failed");
             return;
         }
         // UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
         UsbSerialDriver driver = new FtdiSerialDriver(device);
 
         if (driver == null) {
-            activityMainBinding.connectionId.setText(connectionId.getText() + " Failed");
+            activityTestBinding.connectionId.setText(connectionId.getText() + " Failed");
         }
 
       /*  for(UsbSerialPort usbSerialPortTest : driver.getPorts())
@@ -102,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
         usbConnection = mUsbManger.openDevice(driver.getDevice());
         if (usbConnection == null)
-            activityMainBinding.connectionId.setText(connectionId.getText() + " Failed");
+            activityTestBinding.connectionId.setText(connectionId.getText() + " Failed");
         else {
-            activityMainBinding.connectionId.setText(connectionId.getText() + " Open");
+            activityTestBinding.connectionId.setText(connectionId.getText() + " Open");
 
             try {
                 usbSerialPort.open(usbConnection);
@@ -112,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             } catch (Exception e) {
-                activityMainBinding.connectionId.setText(connectionId.getText() + " Failed");
+                activityTestBinding.connectionId.setText(connectionId.getText() + " Failed");
             }
         }
     }
