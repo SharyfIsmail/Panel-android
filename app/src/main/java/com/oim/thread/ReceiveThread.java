@@ -69,35 +69,35 @@ public class ReceiveThread extends Thread
     @Override
     public void run()
     {
-//        //Test
-//        while(true)
-//        {
-//            try {
-//                Thread.sleep(10);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            DataFromDeviceModel dataFromDeviceModel = canPackage.get(407937232);
-//            dataFromDeviceModel.updateModel();
-//
-//        }
-        if(usbConnection != null)
-        while(!isInterrupted()) {
-            if(usbSerialPort.isOpen()) {
-                try {
-                    int len = 0;
-                    byte [] receiveBuffer = new byte[8192];
-                    len = usbSerialPort.read(receiveBuffer, 100);
-
-                    if (len > 0) {
-                        byte[] array = Arrays.copyOf(receiveBuffer, len);
-                        objectMapping(array);
-                        }
-                    }catch (IOException e) {
-                     e.printStackTrace();
-                }
+        //Test
+        while(true)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            DataFromDeviceModel dataFromDeviceModel = canPackage.get(414503155);
+            dataFromDeviceModel.updateModel();
+
         }
+//        if(usbConnection != null)
+//        while(!isInterrupted()) {
+//            if(usbSerialPort.isOpen()) {
+//                try {
+//                    int len = 0;
+//                    byte [] receiveBuffer = new byte[8192];
+//                    len = usbSerialPort.read(receiveBuffer, 100);
+//
+//                    if (len > 0) {
+//                        byte[] array = Arrays.copyOf(receiveBuffer, len);
+//                        objectMapping(array);
+//                        }
+//                    }catch (IOException e) {
+//                     e.printStackTrace();
+//                }
+//            }
+//        }
     }
     private void objectMapping(byte[] data)
     {

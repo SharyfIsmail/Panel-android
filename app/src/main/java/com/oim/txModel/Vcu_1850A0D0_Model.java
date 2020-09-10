@@ -72,6 +72,7 @@ public class Vcu_1850A0D0_Model   implements DataFromDeviceModel
                 errorStatus.set(String.valueOf(vcu_1850A0D0.getErrorStatus()));
                 time.set(String.valueOf(vcu_1850A0D0.getTime()));
                 speedProgessBar.setProgress(speedToPercent(vcu_1850A0D0.getSpeed()));
+
                 //speedProgessBar.setProgress(testValue);
                 activityTestBinding.setVcu1850A0D0Model(Vcu_1850A0D0_Model.this);
             }

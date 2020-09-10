@@ -91,62 +91,6 @@ public class UsbCanPackage  implements  IUsbCan
                             indexDestination = 0;
                         }
                 }
-               /* if ((indexSource + 1 + 13) == usbPacket.length) {
-                    byte[] partArray = new byte[12];
-                    System.arraycopy(usbPacket, indexSource + 1, partArray, 0, partArray.length);
-                    if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[indexSource + 13])) {
-                        currentCan.parseCan(partArray);
-                        cans.add(currentCan);
-                    }
-                    indexSource = 0;
-                    break;
-                }
-                else if(usbPacket.length - indexSource + 1 >= 13)
-                {
-                    byte[] partArray = new byte[12];
-                    System.arraycopy(usbPacket, indexSource + 1, partArray, 0, partArray.length);
-                    if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbPacket[indexSource + 13])) {
-                        currentCan.parseCan(partArray);
-                        cans.add(currentCan);
-                    }
-                    i += 14;
-                    indexSource = 0;
-                }
-                else
-                    {
-                        int len = (usbPacket.length-indexSource - 1);
-                        System.arraycopy(usbPacket, indexSource + 1, usbData, 0,len );
-                        indexSource = usbPacket.length -(indexSource + 1);
-                    }
-
-                }
-                else {
-                if((indexSource + usbPacket.length) >= 13) {
-                    System.arraycopy(usbPacket, 0, usbData, index, usbData.length - index);
-                    byte[] partArray = new byte[12];
-                    System.arraycopy(usbData, 0, partArray, 0, partArray.length);
-                    if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbData[12])) {
-                        currentCan.parseCan(partArray);
-                        cans.add(currentCan);
-                    }
-                    indexSource = 0;
-                }
-                else
-                {
-                    System.arraycopy(usbPacket, 0, usbData, indexSource, usbData.length - indexSource);
-                    indexSource += usbPacket.length;
-                    if(indexSource == 13)
-                    {
-                        byte[] partArray = new byte[12];
-                        System.arraycopy(usbData, 0, partArray, 0, partArray.length);
-                        if (crc8(partArray) == Parser.BigIndianByteParser.uint_8ToShort(usbData[13])) {
-                            currentCan.parseCan(partArray);
-                            cans.add(currentCan);
-                        }
-                        indexSource = 0;
-                    }
-                }*/
-            //}
         }
     }
 }

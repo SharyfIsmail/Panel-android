@@ -20,6 +20,7 @@ import com.oim.myapplication.R;
 import com.oim.myapplication.databinding.ActivityTestBinding;
 import com.oim.thread.ReceiveThread;
 import com.oim.txModel.AllFramesModel;
+import com.oim.txModel.Bms_18B4D0F3_Model;
 import com.oim.txModel.Inv_18A2D0EF_Model;
 import com.oim.txModel.Vcu_1850A0D0_Model;
 import com.oim.usbDriver.FtdiSerialDriver;
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
        // inv_18A2D0EF_model.setPointer(pointerImage);
         inv_18A2D0EF_model.setRotationProgressBar(rotationProgressBar);
         inv_18A2D0EF_model.setActivityMainBinding(activityTestBinding);
-
+        Bms_18B4D0F3_Model bms_18B4D0F3_model = (Bms_18B4D0F3_Model)allFramesIdMap.getCanId().get(414503155);
+        bms_18B4D0F3_model.setActivityTestBinding(activityTestBinding);
         //buttonClick = (Button) findViewById(R.id.button);
         //buttonClick.setOnClickListener(this);
 

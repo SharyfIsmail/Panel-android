@@ -61,6 +61,7 @@ public class Inv_18A2D0EF_Model  implements DataFromDeviceModel {
               //  rotateAnimation.setFillEnabled(true);
              //   rotateAnimation.setFillAfter(true);
                // previousValue = rotationToDegrees(inv_18A2D0EF.getRotationSpeed());
+
                 activityTestBinding.setInv18A2D0EFModel(Inv_18A2D0EF_Model.this);
             }
         });

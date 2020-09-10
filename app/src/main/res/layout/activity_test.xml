@@ -10,6 +10,9 @@
          <variable
             name= "inv_18A2D0EF_model"
             type="com.oim.txModel.Inv_18A2D0EF_Model" />
+        <variable
+            name="bms_18B4D0F3_Model"
+            type="com.oim.txModel.Bms_18B4D0F3_Model" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +34,7 @@
             app:layout_constraintHorizontal_bias="0.942"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.04">
+            app:layout_constraintVertical_bias="0.012">
 
 
         </TextView>
@@ -170,6 +173,40 @@
                 tools:text="0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/batteryConstrain"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.831">
+
+            <ProgressBar
+                android:id="@+id/progressBattery"
+                style="@style/progressBarStyleForBattery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:progress="100"/>
+
+            <TextView
+                android:id="@+id/batteryTotalVoltage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(bms_18B4D0F3_Model.totalVoltage)}"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBattery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/progressBattery" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

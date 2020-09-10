@@ -4,7 +4,7 @@ import com.oim.can.CanCdr;
 import com.oim.candata.DataFromDevice;
 import com.oim.util.Parser;
 
-public class Inv_18A2D0EF extends CanCdr implements DataFromDevice {
+public class Inv_18A2D0EF  implements DataFromDevice {
     private  int rotationSpeed;
 
     public int getRotationSpeed() {
