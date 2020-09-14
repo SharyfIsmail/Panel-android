@@ -1,15 +1,9 @@
 package com.oim.thread;
 
 import android.hardware.usb.UsbDeviceConnection;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.oim.can.Can;
 import com.oim.candata.DataFromDeviceModel;
-//import com.oim.myapplication.databinding.ActivityMainBinding;
-//import com.oim.txModel.Vcu_1850A0D0_Model;
-import com.oim.myapplication.databinding.ActivityMainBinding;
-import com.oim.txModel.Vcu_1850A0D0_Model;
 import com.oim.usb.IUsbCan;
 import com.oim.usb.UsbCanPackage;
 import com.oim.usbDriver.UsbSerialPort;
@@ -17,35 +11,17 @@ import com.oim.usbDriver.UsbSerialPort;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
+
 
 public class ReceiveThread extends Thread
 {
-    private ActivityMainBinding binding;
     private UsbSerialPort usbSerialPort;
-    private Handler threadHandler;
     private Map<Integer, DataFromDeviceModel> canPackage;
     private UsbDeviceConnection usbConnection;
 
-
-
-    public void setBinding(ActivityMainBinding binding) {
-        this.binding = binding;
-    }
-
-    public void setThreadHandler(Handler threadHandler) {
-        this.threadHandler = threadHandler;
-    }
-
     public void setCanPackage(Map<Integer, DataFromDeviceModel> canPackage) {
         this.canPackage = canPackage;
-    }
-
-    public ActivityMainBinding getBinding() {
-        return binding;
-    }
-
-    public Handler getThreadHandler() {
-        return threadHandler;
     }
 
     public Map<Integer, DataFromDeviceModel> getCanPackage() {
@@ -58,12 +34,6 @@ public class ReceiveThread extends Thread
 
     public void setUsbConnection(UsbDeviceConnection usbConnection) {
         this.usbConnection = usbConnection;
-    }
-
-    public ReceiveThread()
-    {
-        super();
-        threadHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -79,16 +49,19 @@ public class ReceiveThread extends Thread
             }
             DataFromDeviceModel dataFromDeviceModel = canPackage.get(414503155);
             dataFromDeviceModel.updateModel();
+            DataFromDeviceModel dataFromDeviceModel1 = canPackage.get(413323503);
+            dataFromDeviceModel1.updateModel();
+
+            DataFromDeviceModel dataFromDeviceModel2 = canPackage.get(407937232);
+            dataFromDeviceModel2.updateModel();
 
         }
 //        if(usbConnection != null)
 //        while(!isInterrupted()) {
 //            if(usbSerialPort.isOpen()) {
 //                try {
-//                    int len = 0;
 //                    byte [] receiveBuffer = new byte[8192];
-//                    len = usbSerialPort.read(receiveBuffer, 100);
-//
+//                    int len = usbSerialPort.read(receiveBuffer, 100);
 //                    if (len > 0) {
 //                        byte[] array = Arrays.copyOf(receiveBuffer, len);
 //                        objectMapping(array);
@@ -108,7 +81,7 @@ public class ReceiveThread extends Thread
             if(canPackage.get(can.getId()) != null)
             {
                 DataFromDeviceModel dataFromDeviceModel = canPackage.get(can.getId());
-                dataFromDeviceModel.getDataFromDevice().parseDataFromCan(can.getData());
+                Objects.requireNonNull(dataFromDeviceModel).getDataFromDevice().parseDataFromCan(can.getData());
                 dataFromDeviceModel.updateModel();
             }
         }

@@ -9,12 +9,12 @@ import com.oim.util.Parser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Vcu_1850A0D0 extends CanCdr implements DataFromDevice
+public class Vcu_1850A0D0  implements DataFromDevice
 {
     private  String systemStatus;
     private String errorStatus;
     private long time;
-    private short speed;
+    private short speed = 0;
 
     public String getSystemStatus() {
         return systemStatus;
@@ -28,10 +28,17 @@ public class Vcu_1850A0D0 extends CanCdr implements DataFromDevice
         return time;
     }
 
-    public short getSpeed() {
-        return speed;
+//    public short getSpeed() {
+//        return speed;
+//    }
+    public short getSpeed()
+    {
+        if(speed == 200)
+        {
+            speed = 0;
+        }
+        return speed++;
     }
-
     public void setSystemStatus(String systemStatus) {
         this.systemStatus = systemStatus;
     }

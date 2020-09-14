@@ -6,6 +6,7 @@ import androidx.databinding.ObservableFloat;
 import com.oim.candata.DataFromDevice;
 import com.oim.candata.DataFromDeviceModel;
 import com.oim.myapplication.databinding.ActivityTestBinding;
+import com.oim.myapplication.databinding.MainSuperCarBinding;
 import com.oim.tx.Bms_18B4D0F3;
 
 public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
@@ -13,7 +14,7 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     private ObservableFloat totalVoltage;
     private ObservableFloat maxVoltage;
     private ObservableFloat minVoltage;
-    private ActivityTestBinding activityTestBinding;
+    private MainSuperCarBinding mainSuperCarBinding;
 
     public Bms_18B4D0F3_Model() {
         bms_18B4D0F3 = new Bms_18B4D0F3();
@@ -34,15 +35,15 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
         return minVoltage;
     }
 
-    public void setActivityTestBinding(ActivityTestBinding activityTestBinding) {
-        this.activityTestBinding = activityTestBinding;
+    public void setActivityTestBinding(MainSuperCarBinding mainSuperCarBinding) {
+        this.mainSuperCarBinding = mainSuperCarBinding;
     }
 
     @Override
     public void updateModel() {
         totalVoltage.set(bms_18B4D0F3.getBatteryVoltage());
-        activityTestBinding.progressBattery.setProgress(voltageToPercent(bms_18B4D0F3.getBatteryVoltage()));
-        activityTestBinding.setBms18B4D0F3Model(Bms_18B4D0F3_Model.this);
+        mainSuperCarBinding.progressBattery.setProgress(voltageToPercent(bms_18B4D0F3.getBatteryVoltage()));
+        mainSuperCarBinding.setBms18B4D0F3Model(Bms_18B4D0F3_Model.this);
     }
 
     @Override
