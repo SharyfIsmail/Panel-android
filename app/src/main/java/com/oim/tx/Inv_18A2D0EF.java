@@ -4,18 +4,10 @@ import com.oim.candata.DataFromDevice;
 import com.oim.util.Parser;
 
 public class Inv_18A2D0EF  implements DataFromDevice {
-    private  int rotationSpeed =0;
+    private  int rotationSpeed = 0;
 
-//    public int getRotationSpeed() {
-//        return Math.abs(rotationSpeed - 20000);
-//    }
-    public  int getRotationSpeed()
-    {
-        if(rotationSpeed == 12000)
-        {
-            rotationSpeed = 0;
-        }
-        return  rotationSpeed++;
+    public int getRotationSpeed() {
+        return Math.abs(rotationSpeed - 20000);
     }
     public void setRotationSpeed(int rotationSpeed) {
         this.rotationSpeed = rotationSpeed;

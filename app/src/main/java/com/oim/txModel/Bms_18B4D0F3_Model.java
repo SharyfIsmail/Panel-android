@@ -42,7 +42,12 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     @Override
     public void updateModel() {
         totalVoltage.set(bms_18B4D0F3.getBatteryVoltage());
+        maxVoltage.set(bms_18B4D0F3.getMaxCellVoltage());
+        minVoltage.set(bms_18B4D0F3.getMinCellVoltage());
         mainSuperCarBinding.progressBattery.setProgress(voltageToPercent(bms_18B4D0F3.getBatteryVoltage()));
+        mainSuperCarBinding.progressMaxCellVoltage.setProgress(maxVoltageToPercent(bms_18B4D0F3.getMaxCellVoltage()));
+        mainSuperCarBinding.progressMinCellVoltage.setProgress(minVoltageToPercent(bms_18B4D0F3.getMinCellVoltage()));
+
         mainSuperCarBinding.setBms18B4D0F3Model(Bms_18B4D0F3_Model.this);
     }
 
@@ -55,4 +60,14 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     {
         return (int) (100 - ((403 - voltage) * 100/115));
     }
+    private int maxVoltageToPercent(float voltage)
+    {
+        return (int) (100 -(((voltage - 26) * 1000) /20));
+    }
+    private int minVoltageToPercent(float voltage)
+    {
+        return (int) (100 -(((voltage - 26) * 1000) /20));
+
+    }
+
 }

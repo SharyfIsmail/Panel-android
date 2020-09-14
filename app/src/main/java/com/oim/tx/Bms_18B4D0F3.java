@@ -5,22 +5,14 @@ import com.oim.candata.DataFromDevice;
 import com.oim.util.Parser;
 
 public class Bms_18B4D0F3  implements DataFromDevice {
-    private float batteryVoltage = 403;
-    private float maxCellVoltage;
-    private float minCellVoltage;
+    private float batteryVoltage ;
+    private float maxCellVoltage ;
+    private float minCellVoltage ;
 
-//    public float getBatteryVoltage() {
-//        return batteryVoltage /10 ;
-//    }
-
-    public float getBatteryVoltage()
-    {
-        if (batteryVoltage == 288)
-        {
-            batteryVoltage = 403;
-        }
-        return batteryVoltage--;
+    public float getBatteryVoltage() {
+        return batteryVoltage /10 ;
     }
+
     public float getMaxCellVoltage() {
         return maxCellVoltage / 10;
     }

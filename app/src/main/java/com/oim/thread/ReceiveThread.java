@@ -40,37 +40,37 @@ public class ReceiveThread extends Thread
     public void run()
     {
         //Test
-        while(true)
-        {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            DataFromDeviceModel dataFromDeviceModel = canPackage.get(414503155);
-            dataFromDeviceModel.updateModel();
-            DataFromDeviceModel dataFromDeviceModel1 = canPackage.get(413323503);
-            dataFromDeviceModel1.updateModel();
-
-            DataFromDeviceModel dataFromDeviceModel2 = canPackage.get(407937232);
-            dataFromDeviceModel2.updateModel();
-
-        }
-//        if(usbConnection != null)
-//        while(!isInterrupted()) {
-//            if(usbSerialPort.isOpen()) {
-//                try {
-//                    byte [] receiveBuffer = new byte[8192];
-//                    int len = usbSerialPort.read(receiveBuffer, 100);
-//                    if (len > 0) {
-//                        byte[] array = Arrays.copyOf(receiveBuffer, len);
-//                        objectMapping(array);
-//                        }
-//                    }catch (IOException e) {
-//                     e.printStackTrace();
-//                }
+//        while(true)
+//        {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
 //            }
+//            DataFromDeviceModel dataFromDeviceModel = canPackage.get(414503155);
+//            dataFromDeviceModel.updateModel();
+//            DataFromDeviceModel dataFromDeviceModel1 = canPackage.get(413323503);
+//            dataFromDeviceModel1.updateModel();
+//
+//            DataFromDeviceModel dataFromDeviceModel2 = canPackage.get(407937232);
+//            dataFromDeviceModel2.updateModel();
+//
 //        }
+        if(usbConnection != null)
+        while(!isInterrupted()) {
+            if(usbSerialPort.isOpen()) {
+                try {
+                    byte [] receiveBuffer = new byte[8192];
+                    int len = usbSerialPort.read(receiveBuffer, 100);
+                    if (len > 0) {
+                        byte[] array = Arrays.copyOf(receiveBuffer, len);
+                        objectMapping(array);
+                        }
+                    }catch (IOException e) {
+                     e.printStackTrace();
+                }
+            }
+        }
     }
     private void objectMapping(byte[] data)
     {

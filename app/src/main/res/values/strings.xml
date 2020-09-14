@@ -4,6 +4,9 @@
     <string name="connectionId">connection:</string>
     <string name="Pointer">TODO</string>
     <string name="todo">TODO</string>
+    <string name="battery_voltage">Battery voltage</string>
+    <string name="max_cell_voltage">Max cell voltage</string>
+    <string name="min_cell_voltage">Min cell voltage</string>
 
 
 </resources>

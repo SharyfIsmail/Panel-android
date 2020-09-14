@@ -28,16 +28,8 @@ public class Vcu_1850A0D0  implements DataFromDevice
         return time;
     }
 
-//    public short getSpeed() {
-//        return speed;
-//    }
-    public short getSpeed()
-    {
-        if(speed == 200)
-        {
-            speed = 0;
-        }
-        return speed++;
+    public short getSpeed() {
+        return speed;
     }
     public void setSystemStatus(String systemStatus) {
         this.systemStatus = systemStatus;

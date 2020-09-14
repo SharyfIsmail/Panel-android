@@ -31,7 +31,7 @@
             android:textColorHint="#F6F0F0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.012">
@@ -48,7 +48,7 @@
             android:textColor="#FAF6F6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/connectionId"
             app:layout_constraintVertical_bias="0.0" />
@@ -61,7 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.375">
+            app:layout_constraintVertical_bias="0.300">
 
             <TextView
                 android:id="@+id/speedId"
@@ -73,12 +73,12 @@
                 android:layout_marginBottom="110dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:text="@{vcu_1850A0D0_model.speed}"
+                android:text='@{vcu_1850A0D0_model.speed+"\n"+"km/h"}'
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#F8F4F4"
-                android:textSize="70sp"
+                android:textSize="60sp"
                 app:layout_constraintBottom_toBottomOf="@+id/progressBar"
                 app:layout_constraintEnd_toEndOf="@+id/progressBar"
                 app:layout_constraintHorizontal_bias="0.539"
@@ -86,27 +86,6 @@
                 app:layout_constraintTop_toTopOf="@+id/progressBar"
                 app:layout_constraintVertical_bias="0.498"
                 tools:text="0" />
-
-            <TextView
-                android:id="@+id/systemStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:text="@{vcu_1850A0D0_model.systemStatus}"
-                android:textAlignment="center"
-                android:textColor="#C5840A"
-                android:textSize="70sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/progressBar"
-                app:layout_constraintHorizontal_bias="0.539"
-                app:layout_constraintStart_toStartOf="@+id/progressBar"
-                app:layout_constraintTop_toBottomOf="@+id/speedId"
-                app:layout_constraintVertical_bias="0.087">
-
-
-            </TextView>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -129,10 +108,10 @@
             android:foregroundGravity="right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toEndOf="@+id/speedContraint"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.375">
+            app:layout_constraintVertical_bias="0.300">
 
             <ProgressBar
                 android:id="@+id/progressBar2"
@@ -158,12 +137,12 @@
                 android:layout_marginBottom="110dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:text="@{inv_18A2D0EF_model.turnOver}"
+                android:text='@{inv_18A2D0EF_model.turnOver+"\n"+"rpm"}'
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#F8F4F4"
-                android:textSize="70sp"
+                android:textSize="60sp"
                 app:layout_constraintBottom_toBottomOf="@+id/progressBar2"
                 app:layout_constraintEnd_toEndOf="@+id/progressBar2"
                 app:layout_constraintHorizontal_bias="0.529"
@@ -175,38 +154,165 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/batteryConstrain"
-            android:layout_width="250dp"
-            android:layout_height="25dp"
-            app:layout_constraintHorizontal_bias="0.35"
+            android:layout_width="368dp"
+            android:layout_height="108dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.310"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7">
+            app:layout_constraintVertical_bias="0.680">
+
+            <ProgressBar
+                android:id="@+id/progressMinCellVoltage"
+                style="@style/progressBarStyleForCellVoltage"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:progress="100"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.914" />
+
+            <ProgressBar
+                android:id="@+id/progressMaxCellVoltage"
+                style="@style/progressBarStyleForCellVoltage"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:progress="100"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progressBattery"
                 style="@style/progressBarStyleForBattery"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
                 android:progress="100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.073" />
 
             <TextView
                 android:id="@+id/batteryTotalVoltage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(bms_18B4D0F3_Model.totalVoltage)}"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:text='@{String.valueOf(bms_18B4D0F3_Model.totalVoltage)+ "V"}'
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/progressBattery"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/progressBattery"
+                app:layout_constraintStart_toStartOf="@id/progressBattery"
                 app:layout_constraintTop_toTopOf="@+id/progressBattery" />
+
+            <TextView
+                android:id="@+id/maxCellVoltage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:text='@{String.valueOf(bms_18B4D0F3_Model.maxVoltage)+ "V"}'
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progressMaxCellVoltage"
+                app:layout_constraintEnd_toEndOf="@+id/progressMaxCellVoltage"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="@+id/progressMaxCellVoltage"
+                app:layout_constraintTop_toTopOf="@+id/progressMaxCellVoltage"
+                app:layout_constraintVertical_bias="0.666" />
+
+            <TextView
+                android:id="@+id/minCellVoltage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:text='@{String.valueOf(bms_18B4D0F3_Model.minVoltage+ "V")}'
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progressMinCellVoltage"
+                app:layout_constraintEnd_toEndOf="@+id/progressMinCellVoltage"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="@+id/progressMinCellVoltage"
+                app:layout_constraintTop_toTopOf="@+id/progressMinCellVoltage"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_voltage"
+                android:textColor="#DFB128"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/progressBattery"
+                app:layout_constraintHorizontal_bias="0.153"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.153" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/max_cell_voltage"
+                android:textColor="#DFB128"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/progressMaxCellVoltage"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="@string/min_cell_voltage"
+                android:textColor="#DFB128"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/progressMinCellVoltage"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="0.6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/systemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:text="@{vcu_1850A0D0_model.systemStatus}"
+            android:textAlignment="center"
+            android:textColor="#C5840A"
+            android:textSize="70sp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/turnOverConstraint"
+            app:layout_constraintHorizontal_bias="0.471"
+            app:layout_constraintStart_toEndOf="@+id/speedContraint"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.366">
+
+
+        </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
