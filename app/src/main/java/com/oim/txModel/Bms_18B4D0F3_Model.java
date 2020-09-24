@@ -62,11 +62,11 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     }
     private int maxVoltageToPercent(float voltage)
     {
-        return (int) (100 -(((voltage - 26) * 1000) /20));
+        return (int) (((voltage * 10) - 26) * 100) /20;
     }
     private int minVoltageToPercent(float voltage)
     {
-        return (int) (100 -(((voltage - 26) * 1000) /20));
+        return (int) (((voltage * 10) - 26) * 1000) /20;
 
     }
 

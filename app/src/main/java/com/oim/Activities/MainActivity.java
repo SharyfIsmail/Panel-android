@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // rotateAnimation.setDuration(10000);
         //  rotateAnimation.setFillAfter(true);
         //  rotateAnimation.setFillEnabled(true);
-        Vcu_1850A0D0_Model vcu_1850A0D0_model = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(407937232);
+        Vcu_1850A0D0_Model vcu_1850A0D0_model = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(408002768);
         assert vcu_1850A0D0_model != null;
              vcu_1850A0D0_model.setActivityMainBinding(mainSuperCarBinding);
         //  vcu_1850A0D0_model.setSpeedProgessBar(speedProgressBar);
