@@ -45,6 +45,7 @@
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:text="@{vcu_1850A0D0_model.errorStatus}"
+            
             android:textColor="#FAF6F6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

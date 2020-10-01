@@ -3,9 +3,12 @@ package com.oim.usbDriver;
 import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbRequest;
 import android.util.Log;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.LinkedHashMap;
@@ -131,6 +134,51 @@ public class FtdiSerialDriver implements UsbSerialDriver {
                 destPos += length;
             }
             return destPos;
+        }
+
+        @Override
+        public int read(final byte[] dest, final int timeout) throws IOException {
+
+            final UsbEndpoint usbEndpoint = mDevice.getInterface(mPortNumber).getEndpoint(0);
+            final  UsbRequest request = new UsbRequest();
+            final ByteBuffer buf = ByteBuffer.wrap(dest);
+            try
+            {
+                request.initialize(mConnection, usbEndpoint);
+                if(!request.queue(buf, dest.length))
+                {
+                    throw new IOException("Error queueing request.");
+                }
+                final UsbRequest response = mConnection.requestWait();
+                if (response == null) {
+                    throw new IOException("Null response");
+                }
+            }finally {
+                request.close();
+            }
+            final int totalBytesRead = buf.position();
+            if (totalBytesRead < READ_HEADER_LENGTH) {
+                throw new IOException("Expected at least " + READ_HEADER_LENGTH + " bytes");
+            }
+
+            return filterStatusBytes(dest, dest, totalBytesRead, usbEndpoint.getMaxPacketSize());
+        }
+        private final int filterStatusBytes(byte[] src, byte[] dest, int totalBytesRead, int maxPacketSize) {
+            final int packetsCount = (totalBytesRead + maxPacketSize -1 )/ maxPacketSize;
+            for (int packetIdx = 0; packetIdx < packetsCount; ++packetIdx) {
+                final int count = (packetIdx == (packetsCount - 1))
+                        ? totalBytesRead - packetIdx * maxPacketSize - READ_HEADER_LENGTH
+                        : maxPacketSize - READ_HEADER_LENGTH;
+                if (count > 0) {
+                    System.arraycopy(src,
+                            packetIdx * maxPacketSize + READ_HEADER_LENGTH,
+                            dest,
+                            packetIdx * (maxPacketSize - READ_HEADER_LENGTH),
+                            count);
+                }
+            }
+
+            return totalBytesRead - (packetsCount * 2);
         }
 
         private void setBaudrate(int baudRate) throws IOException {

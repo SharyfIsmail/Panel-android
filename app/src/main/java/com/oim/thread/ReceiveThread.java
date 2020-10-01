@@ -39,28 +39,28 @@ public class ReceiveThread extends Thread
     @Override
     public void run()
     {
-        //Test
+      // Test
 //        while(true)
 //        {
 //            try {
-//                Thread.sleep(100);
+//                Thread.sleep(10);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
 //            DataFromDeviceModel dataFromDeviceModel = canPackage.get(414503155);
 //            dataFromDeviceModel.updateModel();
-//            DataFromDeviceModel dataFromDeviceModel1 = canPackage.get(413323503);
-//            dataFromDeviceModel1.updateModel();
+//            dataFromDeviceModel = canPackage.get(413323503);
+//            dataFromDeviceModel.updateModel();
 //
-//            DataFromDeviceModel dataFromDeviceModel2 = canPackage.get(407937232);
-//            dataFromDeviceModel2.updateModel();
-//
-//        }
+//            dataFromDeviceModel= canPackage.get(408002768);
+//            dataFromDeviceModel.updateModel();
+
+     //   }
         if(usbConnection != null)
         while(!isInterrupted()) {
             if(usbSerialPort.isOpen()) {
                 try {
-                    byte [] receiveBuffer = new byte[8192];
+                    byte [] receiveBuffer = new byte[2048];
                     int len = usbSerialPort.read(receiveBuffer, 100);
                     if (len > 0) {
                         byte[] array = Arrays.copyOf(receiveBuffer, len);

@@ -15,12 +15,13 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     private ObservableFloat maxVoltage;
     private ObservableFloat minVoltage;
     private MainSuperCarBinding mainSuperCarBinding;
+    //private  int i = 0;
 
     public Bms_18B4D0F3_Model() {
         bms_18B4D0F3 = new Bms_18B4D0F3();
-        totalVoltage = new ObservableFloat();
-        maxVoltage = new ObservableFloat();
-        minVoltage = new ObservableFloat();
+        totalVoltage = new ObservableFloat(0.0f);
+        maxVoltage = new ObservableFloat(0.0f);
+        minVoltage = new ObservableFloat(0.0f);
     }
 
     public ObservableFloat getTotalVoltage() {
@@ -42,13 +43,12 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
     @Override
     public void updateModel() {
         totalVoltage.set(bms_18B4D0F3.getBatteryVoltage());
+       // totalVoltage.set(i++);
         maxVoltage.set(bms_18B4D0F3.getMaxCellVoltage());
         minVoltage.set(bms_18B4D0F3.getMinCellVoltage());
         mainSuperCarBinding.progressBattery.setProgress(voltageToPercent(bms_18B4D0F3.getBatteryVoltage()));
         mainSuperCarBinding.progressMaxCellVoltage.setProgress(maxVoltageToPercent(bms_18B4D0F3.getMaxCellVoltage()));
         mainSuperCarBinding.progressMinCellVoltage.setProgress(minVoltageToPercent(bms_18B4D0F3.getMinCellVoltage()));
-
-        mainSuperCarBinding.setBms18B4D0F3Model(Bms_18B4D0F3_Model.this);
     }
 
     @Override
@@ -69,5 +69,4 @@ public class Bms_18B4D0F3_Model  implements DataFromDeviceModel {
         return (int) (((voltage * 10) - 26) * 1000) /20;
 
     }
-
 }

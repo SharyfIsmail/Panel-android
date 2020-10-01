@@ -24,6 +24,7 @@ import com.oim.txModel.Vcu_1850A0D0_Model;
 import com.oim.usbDriver.FtdiSerialDriver;
 import com.oim.usbDriver.UsbSerialDriver;
 import com.oim.usbDriver.UsbSerialPort;
+import com.oim.usbDriver.UsbSerialProber;
 
 public class MainActivity extends AppCompatActivity {
     private TextView connectionId;
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_main);
-
         mainSuperCarBinding = DataBindingUtil.setContentView(this, R.layout.main_super_car);
+
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         allFramesIdMap = AllFramesModel.getAllFramesSingelton();
         receiveThread  = new ReceiveThread();
         connectionId = findViewById(R.id.connectionId);
-        // pointerImage = (ImageView) findViewById(R.id.speedPointerId);
+
         //  speedProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         //  rotationProgressBar = (ProgressBar) findViewById(R.id.progressBar2);
         //   RotateAnimation rotateAnimation = new RotateAnimation(-27,360, RotateAnimation.RELATIVE_TO_SELF,1.0f,RotateAnimation.RELATIVE_TO_SELF, 1.0f);
@@ -70,18 +71,15 @@ public class MainActivity extends AppCompatActivity {
         Vcu_1850A0D0_Model vcu_1850A0D0_model = (Vcu_1850A0D0_Model) allFramesIdMap.getCanId().get(408002768);
         assert vcu_1850A0D0_model != null;
              vcu_1850A0D0_model.setActivityMainBinding(mainSuperCarBinding);
-        //  vcu_1850A0D0_model.setSpeedProgessBar(speedProgressBar);
+             mainSuperCarBinding.setVcu1850A0D0Model(vcu_1850A0D0_model);
         Inv_18A2D0EF_Model inv_18A2D0EF_model = (Inv_18A2D0EF_Model) allFramesIdMap.getCanId().get(413323503);
-        // inv_18A2D0EF_model.setPointer(pointerImage);
-        // inv_18A2D0EF_model.setRotationProgressBar(rotationProgressBar);
         assert inv_18A2D0EF_model != null;
              inv_18A2D0EF_model.setActivityMainBinding(mainSuperCarBinding);
+             mainSuperCarBinding.setInv18A2D0EFModel(inv_18A2D0EF_model);
         Bms_18B4D0F3_Model bms_18B4D0F3_model = (Bms_18B4D0F3_Model)allFramesIdMap.getCanId().get(414503155);
         assert bms_18B4D0F3_model != null;
              bms_18B4D0F3_model.setActivityTestBinding(mainSuperCarBinding);
-        //buttonClick = (Button) findViewById(R.id.button);
-        //buttonClick.setOnClickListener(this);
-
+             mainSuperCarBinding.setBms18B4D0F3Model(bms_18B4D0F3_model);
     }
 
     private void connect() {
@@ -94,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
             mainSuperCarBinding.connectionId.setText(String.format("%s Failed", connectionId.getText()));
             return;
         }
-        // UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
-        UsbSerialDriver driver = new FtdiSerialDriver(device);
+         UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
+        //   UsbSerialDriver driver = new FtdiSerialDriver(device);
 
         if (driver == null) {
             mainSuperCarBinding.connectionId.setText(String.format("%s Failed", connectionId.getText()));
@@ -131,5 +129,4 @@ public class MainActivity extends AppCompatActivity {
         receiveThread.setUsbSerialPort(usbSerialPort);
         receiveThread.start();
     }
-
 }
