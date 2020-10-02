@@ -20,6 +20,7 @@ public class ReceiveThread extends Thread
     private Map<Integer, DataFromDeviceModel> canPackage;
     private UsbDeviceConnection usbConnection;
 
+
     public void setCanPackage(Map<Integer, DataFromDeviceModel> canPackage) {
         this.canPackage = canPackage;
     }
@@ -57,18 +58,22 @@ public class ReceiveThread extends Thread
 
      //   }
         if(usbConnection != null)
-        while(!isInterrupted()) {
-            if(usbSerialPort.isOpen()) {
-                try {
-                    byte [] receiveBuffer = new byte[2048];
-                    int len = usbSerialPort.read(receiveBuffer, 100);
-                    if (len > 0) {
-                        byte[] array = Arrays.copyOf(receiveBuffer, len);
-                        objectMapping(array);
+        {
+            byte[] receiveBuffer = new byte[512];
+            while(!isInterrupted())
+            {
+                if(usbSerialPort.isOpen())
+                {
+                    try {
+                        int len = usbSerialPort.read(receiveBuffer, 100);// time doesn't matter
+                        if (len > 0) {
+                            byte[] array = Arrays.copyOf(receiveBuffer, len);
+                            objectMapping(array);
                         }
-                    }catch (IOException e) {
-                     e.printStackTrace();
-                }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+               }
             }
         }
     }
