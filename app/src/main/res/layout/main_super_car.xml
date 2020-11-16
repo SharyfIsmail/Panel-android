@@ -99,7 +99,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:progress="45" />
+                tools:progress="0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:progress="45" />
+                tools:progress="0" />
 
 
             <TextView
@@ -169,7 +169,7 @@
                 style="@style/progressBarStyleForCellVoltage"
                 android:layout_width="250dp"
                 android:layout_height="25dp"
-                android:progress="100"
+                android:progress="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -182,7 +182,7 @@
                 style="@style/progressBarStyleForCellVoltage"
                 android:layout_width="250dp"
                 android:layout_height="25dp"
-                android:progress="100"
+                android:progress="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -195,7 +195,7 @@
                 style="@style/progressBarStyleForBattery"
                 android:layout_width="250dp"
                 android:layout_height="25dp"
-                android:progress="100"
+                android:progress="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
